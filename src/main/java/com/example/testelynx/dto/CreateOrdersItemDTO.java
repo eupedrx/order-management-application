@@ -1,0 +1,8 @@
+package com.example.testelynx.dto;
+
+
+// Records para diminuir o boilerplate de classes DTO.
+public record CreateOrdersItemDTO(
+        Long productId,
+        Integer quantity
+) {}
