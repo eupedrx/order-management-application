@@ -244,25 +244,25 @@ document.getElementById('checkoutForm').addEventListener('submit', async (e) => 
         }))
     };
     
-    console.log('📦 Enviando pedido:', JSON.stringify(orderData, null, 2));
+    console.log('Enviando pedido:', JSON.stringify(orderData, null, 2));
 
     try {
         // Criar pedido
         const order = await API.createOrder(orderData);
-        console.log('✅ Pedido criado:', order);
+        console.log('Pedido criado:', order);
         
         // Processar pagamento com o valor que a pessoa está pagando
         const paymentMethod = document.getElementById('paymentMethod').value;
         const paymentData = {
             orderId: order.id,
             method: paymentMethod,
-            amountCents: paymentAmountCents // ⚠️ Valor que a pessoa está pagando
+            amountCents: paymentAmountCents //Valor que a pessoa está pagando
         };
         
-        console.log('💳 Enviando pagamento:', JSON.stringify(paymentData, null, 2));
+        console.log('Enviando pagamento:', JSON.stringify(paymentData, null, 2));
         
         await API.processPayment(paymentData);
-        console.log('✅ Pagamento processado com sucesso!');
+        console.log('Pagamento processado com sucesso!');
         
         // Salvar pedido no localStorage
         const orders = JSON.parse(localStorage.getItem('userOrders') || '[]');
@@ -290,7 +290,7 @@ document.getElementById('checkoutForm').addEventListener('submit', async (e) => 
         toggleCart();
         
     } catch (error) {
-        console.error('❌ Erro completo:', error);
+        console.error('Erro completo:', error);
         alert('Erro ao finalizar pedido: ' + error.message);
     }
 });
