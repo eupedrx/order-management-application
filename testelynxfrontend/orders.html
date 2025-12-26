@@ -30,7 +30,6 @@
         // Lógica específica da página de pedidos
         const ordersData = JSON.parse(localStorage.getItem('userOrders') || '[]');
 
-
         // Função para carregar e exibir os pedidos
         function loadOrders() {
             const container = document.getElementById('ordersList');
@@ -52,28 +51,69 @@
 
         // Função para ver detalhes do pedido
         async function viewOrderDetail(orderId) {
-            try {
-                const order = await API.getOrder(orderId);
-                document.getElementById('ordersList').style.display = 'none';
-                document.getElementById('orderDetail').style.display = 'block';
-                
-                const content = document.getElementById('orderDetailContent');
-                content.innerHTML = `
-                    <h3>Pedido #${order.id}</h3>
-                    <p><strong>Status:</strong> <span class="order-status">${order.status}</span></p>
-                    <p><strong>Total:</strong> R$ ${(order.totalCents / 100).toFixed(2)}</p>
-                    <h4>Itens:</h4>
-                    <ul>
-                        ${order.items.map(item => `
-                            <li>${item.productName} - Qtd: ${item.quantity} - R$ ${(item.priceCents / 100).toFixed(2)}</li>
-                        `).join('')}
-                    </ul>
-                `;
-            } catch (error) {
-                alert('Erro ao carregar detalhes do pedido');
-            }
-        }
+    try {
+        const order = await API.getOrder(orderId);
+        document.getElementById('ordersList').style.display = 'none';
+        document.getElementById('orderDetail').style.display = 'block';
+        
+        const content = document.getElementById('orderDetailContent');
+        // Verificar se pode cancelar
+        const canCancel = order.status === 'NEW' || order.status === 'PAID';
+        const cancelButton = canCancel ? 
+            `<button class="btn btn-danger" onclick="cancelOrder(${order.id})">Cancelar Pedido</button>` : '';
+        
+        content.innerHTML = `
+            <div class="order-detail-header">
+                <h3>Pedido #${order.id}</h3>
+                <span class="order-status status-${order.status.toLowerCase()}">${order.status}</span>
+            </div>
+            
+            <div class="order-info">
+                <p><strong>Total:</strong> R$ ${(order.totalCents / 100).toFixed(2)}</p>
+                <p><strong>Data:</strong> ${order.createdAt ? new Date(order.createdAt).toLocaleString('pt-BR') : 'N/A'}</p>
 
+            </div>
+            
+            <h4>Itens do Pedido:</h4>
+            <ul class="order-items-list">
+                ${order.items.map(item => `
+                    <li>
+                        <strong>${item.productName || 'Produto'}</strong><br>
+                        Quantidade: ${item.quantity} × R$ ${((item.unitPriceCents || item.priceCents || 0) / 100).toFixed(2)}
+                        = <strong>R$ ${(((item.unitPriceCents || item.priceCents || 0) * item.quantity) / 100).toFixed(2)}</strong>
+                    </li>
+                `).join('')}
+            </ul>
+            
+            <div class="order-actions">
+                ${cancelButton}
+            </div>
+        `;
+    } catch (error) {
+        alert('Erro ao carregar detalhes do pedido');
+        console.error(error);
+    }
+}
+
+// Função para cancelar pedido
+async function cancelOrder(orderId) {
+
+    const confirmed = confirm('Tem certeza que deseja cancelar este pedido?');
+    if (!confirmed) return;
+    
+    try {
+        await API.cancelOrder(orderId);
+        alert('Pedido cancelado com sucesso!');
+        
+        // Recarregar detalhes
+        await viewOrderDetail(orderId);
+    } catch (error) {
+        console.error('Erro ao cancelar pedido:', error);
+        alert('Erro ao cancelar pedido: ' + error.message);
+    }
+}
+
+        // Função para voltar à lista de pedidos
         function backToOrders() {
             document.getElementById('ordersList').style.display = 'block';
             document.getElementById('orderDetail').style.display = 'none';
