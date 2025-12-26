@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pedidos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🛒 Minha Loja</h1>
+        <div class="nav-links">
+            <a href="index.html">Produtos</a>
+            <a href="orders.html" class="active">Meus Pedidos</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2>📦 Meus Pedidos</h2>
+        <div id="ordersList" class="orders-list"></div>
+        
+        <div id="orderDetail" class="order-detail" style="display:none;">
+            <button class="btn btn-secondary" onclick="backToOrders()">← Voltar</button>
+            <div id="orderDetailContent"></div>
+        </div>
+    </main>
+
+    <script src="api.js"></script>
+    <script>
+        // Lógica específica da página de pedidos
+        const ordersData = JSON.parse(localStorage.getItem('userOrders') || '[]');
+
+
+        // Função para carregar e exibir os pedidos
+        function loadOrders() {
+            const container = document.getElementById('ordersList');
+            if (ordersData.length === 0) {
+                container.innerHTML = '<p class="empty-state">Nenhum pedido encontrado</p>';
+                return;
+            }
+
+            container.innerHTML = ordersData.map(order => `
+                <div class="order-card" onclick="viewOrderDetail(${order.id})">
+                    <div>
+                        <strong>Pedido #${order.id}</strong>
+                    </div>
+                    <small>${new Date(order.createdAt).toLocaleString('pt-BR')}</small>
+                </div>
+            `).join('');
+        }
+
+
+        // Função para ver detalhes do pedido
+        async function viewOrderDetail(orderId) {
+            try {
+                const order = await API.getOrder(orderId);
+                document.getElementById('ordersList').style.display = 'none';
+                document.getElementById('orderDetail').style.display = 'block';
+                
+                const content = document.getElementById('orderDetailContent');
+                content.innerHTML = `
+                    <h3>Pedido #${order.id}</h3>
+                    <p><strong>Status:</strong> <span class="order-status">${order.status}</span></p>
+                    <p><strong>Total:</strong> R$ ${(order.totalCents / 100).toFixed(2)}</p>
+                    <h4>Itens:</h4>
+                    <ul>
+                        ${order.items.map(item => `
+                            <li>${item.productName} - Qtd: ${item.quantity} - R$ ${(item.priceCents / 100).toFixed(2)}</li>
+                        `).join('')}
+                    </ul>
+                `;
+            } catch (error) {
+                alert('Erro ao carregar detalhes do pedido');
+            }
+        }
+
+        function backToOrders() {
+            document.getElementById('ordersList').style.display = 'block';
+            document.getElementById('orderDetail').style.display = 'none';
+        }
+
+        loadOrders();
+    </script>
+</body>
+</html>
