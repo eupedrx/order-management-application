@@ -6,6 +6,7 @@ import com.example.testelynx.dto.CreateOrdersDTO;
 import com.example.testelynx.dto.OrderItemResponseDTO;
 import com.example.testelynx.dto.OrderResponseDTO;
 import com.example.testelynx.service.OrdersService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,38 +23,16 @@ public class OrdersController {
         this.ordersService = ordersService;
     }
 
-
     @GetMapping
     public List<Orders> listarOrders() {
         return ordersService.listarOrders();
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponseDTO> buscarOrder(@PathVariable Long id) {
-        return ordersService.findById(id)
-                .map(order -> mapToDTO(order)) // Apenas mapeia
+        return ordersService.findOrderById(id) // Service retorna DTO
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
-
-    private OrderResponseDTO mapToDTO(Orders order) {
-        List<OrderItemResponseDTO> itemsDTO = order.getItems().stream()
-                .map(item -> new OrderItemResponseDTO(
-                        item.getProduct().getId(),
-                        item.getProduct().getName(),
-                        item.getQuantity(),
-                        item.getSubtotal()
-                ))
-                .toList();
-
-        return new OrderResponseDTO(
-                order.getId(),
-                order.getStatus().name(),
-                order.calculateTotal(),
-                order.getCustomers().getId(),
-                itemsDTO
-        );
     }
 
     @PostMapping
@@ -61,4 +40,15 @@ public class OrdersController {
         return ordersService.criarOrder(dto);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> cancelOrder(@PathVariable Long id) {
+        try {
+            OrderResponseDTO response = ordersService.cancelOrder(id); // Service retorna DTO
+            return ResponseEntity.ok(response);
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
