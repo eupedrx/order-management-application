@@ -7,14 +7,12 @@ import com.example.testelynx.domain.Products;
 import com.example.testelynx.domain.enums.OrderStatus;
 import com.example.testelynx.dto.CreateOrdersDTO;
 import com.example.testelynx.dto.CreateOrdersItemDTO;
-import com.example.testelynx.dto.OrderItemResponseDTO;
 import com.example.testelynx.dto.OrderResponseDTO;
+import com.example.testelynx.mapper.OrderMapper;
 import com.example.testelynx.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,52 +24,30 @@ public class OrdersService {
     private final OrdersRepository orderRepository;
     private final ProductsRepository productRepository;
     private final CustomersRepository customerRepository;
+    private final OrderMapper orderMapper;
 
     // Construtor
     public OrdersService(OrdersRepository orderRepository,
                          ProductsRepository productRepository,
-                         CustomersRepository customerRepository) {
+                         CustomersRepository customerRepository,
+                         OrderMapper orderMapper) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
+        this.orderMapper = orderMapper;
     }
 
+    // Listar todos os pedidos
     public List<Orders> listarOrders() {
         return orderRepository.findAll();
     }
 
-    public Optional<Orders> findById(Long id) {
-        return orderRepository.findById(id);
-    }
-
-    // Método que retorna DTO
+    // Lista por ID do pedido (Utilizando DTO)
     public Optional<OrderResponseDTO> findOrderById(Long id) {
         return orderRepository.findById(id)
-                .map(this::toDTO);
+                .map(orderMapper::toDTO);
     }
 
-    // Método privado de conversão para DTO
-    private OrderResponseDTO toDTO(Orders order) {
-        List<OrderItemResponseDTO> itemsDTO = order.getItems().stream()
-                .map(item -> new OrderItemResponseDTO(
-                        item.getProduct().getId(),
-                        item.getProduct().getName(),
-                        item.getQuantity(),
-                        item.getSubtotal()
-                ))
-                .toList();
-
-        return new OrderResponseDTO(
-                order.getId(),
-                order.getStatus().name(),
-                order.calculateTotal(),
-                order.getCreatedAt(),
-                order.getCustomers().getId(),
-                itemsDTO
-        );
-    }
-
-    @Transactional
     public Orders criarOrder(CreateOrdersDTO dto) {
 
         Customers customer = customerRepository.findById(dto.customerId())
@@ -115,7 +91,6 @@ public class OrdersService {
         return orderRepository.save(order);
     }
 
-    @Transactional
     public OrderResponseDTO cancelOrder(Long orderId) {
         // Buscar o pedido
         Orders order = orderRepository.findById(orderId)
@@ -130,7 +105,6 @@ public class OrdersService {
         order.setStatus(OrderStatus.CANCELLED);
         Orders savedOrder = orderRepository.save(order);
 
-        // ⚠️ Retorna DTO
-        return toDTO(savedOrder);
+        return orderMapper.toDTO(savedOrder);
     }
 }
