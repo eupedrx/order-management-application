@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 
 // Records para diminuir o boilerplate de classes DTO.
-public record PaymentRequest(
+public record PaymentRequestDTO(
         @NotNull
         Long orderId,
         @NotNull
