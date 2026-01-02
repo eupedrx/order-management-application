@@ -1,5 +1,6 @@
 package com.example.testelynx.controller;
 
+import com.example.testelynx.docs.ProductsControllerDoc;
 import com.example.testelynx.domain.Products;
 import com.example.testelynx.dto.ProductsFilterDTO;
 import com.example.testelynx.service.ProductsService;
@@ -10,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 @CrossOrigin(origins = "*")
-public class ProductsController {
+public class ProductsController implements ProductsControllerDoc {
 
     private final ProductsService productsService;
 
@@ -19,11 +20,13 @@ public class ProductsController {
     }
 
     @GetMapping
+    @Override
     public List<Products> listarProdutos(ProductsFilterDTO filtro) {
         return productsService.listarProdutos(filtro);
     }
 
     @GetMapping("/{id}")
+    @Override
     public ResponseEntity<Products> buscarProduto(@PathVariable Long id) {
         return productsService.findById(id)
                 .map(ResponseEntity::ok)
