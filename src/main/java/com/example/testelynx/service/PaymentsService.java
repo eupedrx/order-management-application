@@ -28,37 +28,32 @@ public class PaymentsService {
 
 
     // Processar pagamento
-    @Transactional
-    public Payments processarPagamento(Long orderId, PaymentMethod method, Integer amountCents) {
-        // Buscar o pedido
-        Orders order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado com ID: " + orderId));
+    public Payments processarPagamento(Long orderId, Payments payment) {
 
-        // Validar se o pedido está em status NEW
+        Orders order = orderRepository.findById(orderId)
+                .orElseThrow(() ->
+                        new EntityNotFoundException("Pedido não encontrado com ID: " + orderId));
+
         if (order.getStatus() != OrderStatus.NEW) {
-            throw new IllegalStateException("O pedido não pode ser pago. Atual status: " + order.getStatus());
+            throw new IllegalStateException(
+                    "O pedido não pode ser pago. Atual status: " + order.getStatus());
         }
 
         Integer orderCents = order.calculateTotal();
-        if (amountCents < orderCents) {
-            throw new IllegalArgumentException("Valor do pagamento insuficiente: esperado pelo menos " + orderCents + " cents.");
+        if (payment.getAmountCents() < orderCents) {
+            throw new IllegalArgumentException(
+                    "Valor do pagamento insuficiente: esperado pelo menos " + orderCents + " cents.");
         }
 
-        // Criar o pagamento
-        Payments payment = new Payments();
         payment.setOrder(order);
-        payment.setMethod(method);
-        payment.setAmountCents(amountCents);
         payment.setPaidAt(LocalDateTime.now());
 
         Payments savedPayment = paymentRepository.save(payment);
 
-        // Atualizar o status do pedido para PAID
         order.setStatus(OrderStatus.PAID);
         orderRepository.save(order);
 
         return savedPayment;
     }
-
 
 }
