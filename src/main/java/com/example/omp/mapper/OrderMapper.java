@@ -1,9 +1,9 @@
-package com.example.testelynx.mapper;
+package com.example.omp.mapper;
 
-import com.example.testelynx.domain.Orders;
-import com.example.testelynx.domain.OrderItems;
-import com.example.testelynx.dto.OrderResponseDTO;
-import com.example.testelynx.dto.OrderItemResponseDTO;
+import com.example.omp.domain.Orders;
+import com.example.omp.domain.OrderItems;
+import com.example.omp.dto.OrderResponseDTO;
+import com.example.omp.dto.OrderItemResponseDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

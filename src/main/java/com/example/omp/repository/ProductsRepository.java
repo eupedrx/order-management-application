@@ -1,6 +1,6 @@
-package com.example.testelynx.repository;
+package com.example.omp.repository;
 
-import com.example.testelynx.domain.Products;
+import com.example.omp.domain.Products;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

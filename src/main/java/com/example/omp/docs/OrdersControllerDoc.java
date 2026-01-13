@@ -1,16 +1,15 @@
-package com.example.testelynx.docs;
+package com.example.omp.docs;
 
 
-import com.example.testelynx.domain.Orders;
-import com.example.testelynx.dto.CreateOrdersDTO;
-import com.example.testelynx.dto.OrderResponseDTO;
+import com.example.omp.domain.Orders;
+import com.example.omp.dto.CreateOrdersDTO;
+import com.example.omp.dto.OrderResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;

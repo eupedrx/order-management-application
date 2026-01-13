@@ -1,8 +1,8 @@
-package com.example.testelynx.docs;
+package com.example.omp.docs;
 
 
-import com.example.testelynx.domain.Payments;
-import com.example.testelynx.dto.PaymentRequestDTO;
+import com.example.omp.domain.Payments;
+import com.example.omp.dto.PaymentRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

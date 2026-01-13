@@ -1,9 +1,8 @@
-package com.example.testelynx.domain;
+package com.example.omp.domain;
 
 
 
-import com.example.testelynx.domain.enums.OrderStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.omp.domain.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

@@ -1,10 +1,8 @@
-package com.example.testelynx.repository;
+package com.example.omp.repository;
 
-import com.example.testelynx.domain.Customers;
+import com.example.omp.domain.Customers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 
 @Repository

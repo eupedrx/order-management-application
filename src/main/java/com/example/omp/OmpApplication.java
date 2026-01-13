@@ -1,12 +1,12 @@
-package com.example.testelynx;
+package com.example.omp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestelynxApplication {
+public class OmpApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(TestelynxApplication.class, args);
+		SpringApplication.run(OmpApplication.class, args);
 	}
 
 }

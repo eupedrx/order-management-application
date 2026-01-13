@@ -1,6 +1,4 @@
-package com.example.testelynx.dto;
-
-import com.example.testelynx.domain.enums.OrderStatus;
+package com.example.omp.dto;
 
 import java.util.List;
 

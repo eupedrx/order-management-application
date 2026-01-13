@@ -1,15 +1,15 @@
-package com.example.testelynx.service;
+package com.example.omp.service;
 
-import com.example.testelynx.domain.Customers;
-import com.example.testelynx.domain.OrderItems;
-import com.example.testelynx.domain.Orders;
-import com.example.testelynx.domain.Products;
-import com.example.testelynx.domain.enums.OrderStatus;
-import com.example.testelynx.dto.CreateOrdersDTO;
-import com.example.testelynx.dto.CreateOrdersItemDTO;
-import com.example.testelynx.dto.OrderResponseDTO;
-import com.example.testelynx.mapper.OrderMapper;
-import com.example.testelynx.repository.*;
+import com.example.omp.domain.Customers;
+import com.example.omp.domain.OrderItems;
+import com.example.omp.domain.Orders;
+import com.example.omp.domain.Products;
+import com.example.omp.domain.enums.OrderStatus;
+import com.example.omp.dto.CreateOrdersDTO;
+import com.example.omp.dto.CreateOrdersItemDTO;
+import com.example.omp.dto.OrderResponseDTO;
+import com.example.omp.mapper.OrderMapper;
+import com.example.omp.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 

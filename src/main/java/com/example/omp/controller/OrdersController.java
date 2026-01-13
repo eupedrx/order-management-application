@@ -1,14 +1,12 @@
-package com.example.testelynx.controller;
+package com.example.omp.controller;
 
 
-import com.example.testelynx.docs.OrdersControllerDoc;
-import com.example.testelynx.domain.Orders;
-import com.example.testelynx.dto.CreateOrdersDTO;
-import com.example.testelynx.dto.OrderItemResponseDTO;
-import com.example.testelynx.dto.OrderResponseDTO;
-import com.example.testelynx.service.OrdersService;
+import com.example.omp.docs.OrdersControllerDoc;
+import com.example.omp.domain.Orders;
+import com.example.omp.dto.CreateOrdersDTO;
+import com.example.omp.dto.OrderResponseDTO;
+import com.example.omp.service.OrdersService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

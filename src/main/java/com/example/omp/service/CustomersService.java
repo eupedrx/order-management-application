@@ -1,7 +1,7 @@
-package com.example.testelynx.service;
+package com.example.omp.service;
 
-import com.example.testelynx.domain.Customers;
-import com.example.testelynx.repository.CustomersRepository;
+import com.example.omp.domain.Customers;
+import com.example.omp.repository.CustomersRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

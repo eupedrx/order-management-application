@@ -1,7 +1,7 @@
-package com.example.testelynx.mapper;
+package com.example.omp.mapper;
 
-import com.example.testelynx.domain.Payments;
-import com.example.testelynx.dto.PaymentRequestDTO;
+import com.example.omp.domain.Payments;
+import com.example.omp.dto.PaymentRequestDTO;
 import org.springframework.stereotype.Component;
 
 @Component

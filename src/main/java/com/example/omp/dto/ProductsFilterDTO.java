@@ -1,4 +1,4 @@
-package com.example.testelynx.dto;
+package com.example.omp.dto;
 
 
 

@@ -1,6 +1,6 @@
-package com.example.testelynx.dto;
+package com.example.omp.dto;
 
-import com.example.testelynx.domain.enums.PaymentMethod;
+import com.example.omp.domain.enums.PaymentMethod;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 

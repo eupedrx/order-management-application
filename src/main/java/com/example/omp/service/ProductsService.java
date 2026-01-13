@@ -1,11 +1,10 @@
-package com.example.testelynx.service;
+package com.example.omp.service;
 
-import com.example.testelynx.domain.Products;
-import com.example.testelynx.dto.ProductsFilterDTO;
-import com.example.testelynx.repository.ProductsRepository;
+import com.example.omp.domain.Products;
+import com.example.omp.dto.ProductsFilterDTO;
+import com.example.omp.repository.ProductsRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;

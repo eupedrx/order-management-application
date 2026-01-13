@@ -1,14 +1,12 @@
-package com.example.testelynx.service;
+package com.example.omp.service;
 
 
-import com.example.testelynx.domain.Orders;
-import com.example.testelynx.domain.Payments;
-import com.example.testelynx.domain.enums.OrderStatus;
-import com.example.testelynx.domain.enums.PaymentMethod;
-import com.example.testelynx.repository.OrdersRepository;
-import com.example.testelynx.repository.PaymentsRepository;
+import com.example.omp.domain.Orders;
+import com.example.omp.domain.Payments;
+import com.example.omp.domain.enums.OrderStatus;
+import com.example.omp.repository.OrdersRepository;
+import com.example.omp.repository.PaymentsRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

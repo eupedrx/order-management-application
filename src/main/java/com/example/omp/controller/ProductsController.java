@@ -1,9 +1,9 @@
-package com.example.testelynx.controller;
+package com.example.omp.controller;
 
-import com.example.testelynx.docs.ProductsControllerDoc;
-import com.example.testelynx.domain.Products;
-import com.example.testelynx.dto.ProductsFilterDTO;
-import com.example.testelynx.service.ProductsService;
+import com.example.omp.docs.ProductsControllerDoc;
+import com.example.omp.domain.Products;
+import com.example.omp.dto.ProductsFilterDTO;
+import com.example.omp.service.ProductsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

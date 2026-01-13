@@ -1,4 +1,4 @@
-package com.example.testelynx.domain.enums;
+package com.example.omp.domain.enums;
 
 public enum OrderStatus {
     NEW,

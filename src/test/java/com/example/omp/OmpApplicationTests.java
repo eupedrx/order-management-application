@@ -1,10 +1,10 @@
-package com.example.testelynx;
+package com.example.omp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TestelynxApplicationTests {
+class OmpApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,4 +1,4 @@
-package com.example.testelynx.domain;
+package com.example.omp.domain;
 
 import jakarta.persistence.*;
 

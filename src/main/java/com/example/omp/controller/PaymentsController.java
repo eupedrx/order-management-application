@@ -1,10 +1,10 @@
-package com.example.testelynx.controller;
+package com.example.omp.controller;
 
-import com.example.testelynx.docs.PaymentsControllerDoc;
-import com.example.testelynx.domain.Payments;
-import com.example.testelynx.dto.PaymentRequestDTO;
-import com.example.testelynx.mapper.PaymentMapper;
-import com.example.testelynx.service.PaymentsService;
+import com.example.omp.docs.PaymentsControllerDoc;
+import com.example.omp.domain.Payments;
+import com.example.omp.dto.PaymentRequestDTO;
+import com.example.omp.mapper.PaymentMapper;
+import com.example.omp.service.PaymentsService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,8 @@
-package com.example.testelynx.domain;
+package com.example.omp.domain;
 
-import com.example.testelynx.domain.enums.PaymentMethod;
+import com.example.omp.domain.enums.PaymentMethod;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
 
