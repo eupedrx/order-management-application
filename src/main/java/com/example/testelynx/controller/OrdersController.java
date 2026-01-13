@@ -1,6 +1,7 @@
 package com.example.testelynx.controller;
 
 
+import com.example.testelynx.docs.OrdersControllerDoc;
 import com.example.testelynx.domain.Orders;
 import com.example.testelynx.dto.CreateOrdersDTO;
 import com.example.testelynx.dto.OrderItemResponseDTO;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/orders")
 @CrossOrigin(origins = "*")
-public class OrdersController {
+public class OrdersController implements OrdersControllerDoc {
     private final OrdersService ordersService;
 
     public OrdersController(OrdersService ordersService) {
@@ -24,11 +25,13 @@ public class OrdersController {
     }
 
     @GetMapping
+    @Override
     public List<Orders> listarOrders() {
         return ordersService.listarOrders();
     }
 
     @GetMapping("/{id}")
+    @Override
     public ResponseEntity<OrderResponseDTO> buscarOrder(@PathVariable Long id) {
         return ordersService.findOrderById(id) // Service retorna DTO
                 .map(ResponseEntity::ok)
@@ -36,11 +39,13 @@ public class OrdersController {
     }
 
     @PostMapping
+    @Override
     public Orders criarOrder(@RequestBody CreateOrdersDTO dto) {
         return ordersService.criarOrder(dto);
     }
 
     @PutMapping("/{id}")
+    @Override
     public ResponseEntity<?> cancelOrder(@PathVariable Long id) {
         try {
             OrderResponseDTO response = ordersService.cancelOrder(id); // Service retorna DTO
