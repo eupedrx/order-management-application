@@ -2,15 +2,13 @@ package com.example.omp.mapper;
 
 import com.example.omp.domain.Payments;
 import com.example.omp.dto.PaymentRequestDTO;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class PaymentMapper {
+@Mapper(componentModel = "spring")
+public interface PaymentMapper {
 
-    public Payments toEntity(PaymentRequestDTO dto) {
-        Payments payment = new Payments();
-        payment.setMethod(dto.method());
-        payment.setAmountCents(dto.amountCents());
-        return payment;
-    }
+    @Mapping(target = "method", source = "method")
+    @Mapping(target = "amountCents", source = "amountCents")
+    Payments toEntity(PaymentRequestDTO dto);
 }
