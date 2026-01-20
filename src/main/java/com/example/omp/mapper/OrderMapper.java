@@ -4,53 +4,18 @@ import com.example.omp.domain.Orders;
 import com.example.omp.domain.OrderItems;
 import com.example.omp.dto.OrderResponseDTO;
 import com.example.omp.dto.OrderItemResponseDTO;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import java.util.List;
-import java.util.stream.Collectors;
+@Mapper(componentModel = "spring")
+public interface OrderMapper {
 
-@Component
-public class OrderMapper {
+    @Mapping(target = "status", expression = "java(order.getStatus().name())")
+    @Mapping(target = "totalCents", expression = "java(order.calculateTotal())")
+    @Mapping(target = "customerId", source = "customers.id")
+    OrderResponseDTO toDTO(Orders order);
 
-    public OrderResponseDTO toDTO(Orders order) {
-        if (order == null) {
-            return null;
-        }
-
-        List<OrderItemResponseDTO> itemsDTO = order.getItems().stream()
-                .map(this::toItemDTO)
-                .collect(Collectors.toList());
-
-        return new OrderResponseDTO(
-                order.getId(),
-                order.getStatus().name(),
-                order.calculateTotal(),
-                order.getCreatedAt(),
-                order.getCustomers().getId(),
-                itemsDTO
-        );
-    }
-
-    public OrderItemResponseDTO toItemDTO(OrderItems item) {
-        if (item == null) {
-            return null;
-        }
-
-        return new OrderItemResponseDTO(
-                item.getProduct().getId(),
-                item.getProduct().getName(),
-                item.getQuantity(),
-                item.getSubtotal()
-        );
-    }
-
-    public List<OrderResponseDTO> toDTOList(List<Orders> orders) {
-        if (orders == null || orders.isEmpty()) {
-            return List.of();
-        }
-
-        return orders.stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
+    @Mapping(target = "productId", source = "product.id")
+    @Mapping(target = "productName", source = "product.name")
+    OrderItemResponseDTO toItemDTO(OrderItems item);
 }
