@@ -1,0 +1,34 @@
+<h2>📦 Meus Pedidos</h2>
+        <div id="ordersList" class="orders-list">
+            @for (order of lista; track order.id) {
+            <div class="order-card" (click)="viewOrderDetails(order)">
+                    <div>
+                        <strong>Pedido {{ order.id }}</strong>
+                    </div>
+                    <small>Data: {{ order.createdAt | date:'fullDate' }}</small>
+            </div>}
+        </div>
+        
+        @if (selectedOrder) {
+          <div class="order-detail-backdrop">
+            <div class="order-detail-modal">
+              <button class="btn btn-secondary" (click)="closeOrderDetails()">← Voltar</button>
+              <h3 class="pt-2">Pedido {{ selectedOrder.id }}</h3>
+              <p class="">Status: {{ selectedOrder.status }}</p>
+              <p>Data: {{ selectedOrder.createdAt | date:'fullDate' }}</p>
+              <p><strong>Total:</strong> {{ getOrderTotalCents(selectedOrder) / 100 | currency:'BRL':'symbol':'1.2-2' }}</p>
+              <h4>Itens</h4>
+              <ul>
+                @for (item of selectedOrder.items; track item.productId) {
+                  <li>
+                    {{ item.productName }} - {{ item.quantity }} x
+                    {{ item.priceCents / 100 | currency:'BRL':'symbol':'1.2-2' }}
+                  </li>
+                }
+              </ul>
+              <button class="btn btn-danger mt-3" (click)="cancelarPedidoSelecionado()">
+                Cancelar Pedido
+              </button>
+            </div>
+          </div>
+        }

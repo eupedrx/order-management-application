@@ -1,0 +1,25 @@
+
+<div class="login-page">
+    <div class="container">
+        <div class="row justify-content-center ">
+            <div class="col-4 text-center mt-5 p-4 position-relative border rounded-3 shadow">
+            
+            <h3 class="mb-4">Login</h3>
+            <mdb-form-control>
+            <input mdbInput type="text" id="form1" class="form-control" [(ngModel)]="username" />
+            <label mdbLabel class="form-label" for="form1">Usuário</label>
+            </mdb-form-control>
+
+            <br>
+
+            <mdb-form-control>
+            <input mdbInput type="text" id="form1" class="form-control" [(ngModel)]="password" />
+            <label mdbLabel class="form-label" for="form1">Senha</label>
+            </mdb-form-control>
+            <br>
+            <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="logar()">Acessar</button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,51 @@
+<div
+	class="modal-backdrop"
+	*ngIf="isCartModalOpen"
+>
+	<div class="modal-dialog">
+		<div class="modal-header">
+			<h2>Resumo do Carrinho</h2>
+			<button type="button" class="btn-close" (click)="closeCartModal()">
+				✕
+			</button>
+		</div>
+
+		<div class="modal-body">
+			<p *ngIf="cart.length === 0">Carrinho vazio</p>
+
+			<div class="cart-item" *ngFor="let item of cart; let i = index">
+				<div>
+					<strong>{{ item.name }}</strong>
+					<p>
+						R$
+						{{ item.priceCents / 100 | number: '1.2-2' }}
+						x {{ item.quantity }}
+					</p>
+					<strong>
+						Subtotal:
+						R$
+						{{ (item.priceCents * item.quantity) / 100 | number: '1.2-2' }}
+					</strong>
+				</div>
+				<button
+					type="button"
+					class="btn-remove"
+					(click)="removeFromCart(i)"
+				>
+					🗑️
+				</button>
+			</div>
+		</div>
+
+		<div class="modal-footer" *ngIf="cart.length > 0">
+			<div class="cart-total">
+				<strong>Total:</strong>
+				<span>{{ cartTotalFormatted }}</span>
+			</div>
+
+			<button type="button" class="btn btn-primary">
+				Finalizar Pedido
+			</button>
+		</div>
+	</div>
+</div>
