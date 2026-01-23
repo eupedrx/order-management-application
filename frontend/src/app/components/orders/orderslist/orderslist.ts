@@ -71,11 +71,11 @@ export class Orderslist {
   this.orderService.cancelarOrder(this.selectedOrder.id).subscribe({
     next: () => {
       this.lista = this.lista.map((o) =>
-        o.id === this.selectedOrder!.id ? { ...o, status: 'CANCELADO' } : o
+        o.id === this.selectedOrder!.id ? { ...o, status: 'CANCELLED' } : o
       );
       this.selectedOrder = {
         ...this.selectedOrder!,
-        status: 'CANCELADO',
+        status: 'CANCELLED',
       };
       alert('Pedido cancelado com sucesso.');
     },

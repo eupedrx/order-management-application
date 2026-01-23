@@ -1,34 +1,94 @@
-<h2>📦 Meus Pedidos</h2>
-        <div id="ordersList" class="orders-list">
-            @for (order of lista; track order.id) {
-            <div class="order-card" (click)="viewOrderDetails(order)">
-                    <div>
-                        <strong>Pedido {{ order.id }}</strong>
-                    </div>
-                    <small>Data: {{ order.createdAt | date:'fullDate' }}</small>
-            </div>}
-        </div>
-        
-        @if (selectedOrder) {
-          <div class="order-detail-backdrop">
-            <div class="order-detail-modal">
-              <button class="btn btn-secondary" (click)="closeOrderDetails()">← Voltar</button>
-              <h3 class="pt-2">Pedido {{ selectedOrder.id }}</h3>
-              <p class="">Status: {{ selectedOrder.status }}</p>
-              <p>Data: {{ selectedOrder.createdAt | date:'fullDate' }}</p>
-              <p><strong>Total:</strong> {{ getOrderTotalCents(selectedOrder) / 100 | currency:'BRL':'symbol':'1.2-2' }}</p>
-              <h4>Itens</h4>
-              <ul>
-                @for (item of selectedOrder.items; track item.productId) {
-                  <li>
-                    {{ item.productName }} - {{ item.quantity }} x
-                    {{ item.priceCents / 100 | currency:'BRL':'symbol':'1.2-2' }}
-                  </li>
-                }
-              </ul>
-              <button class="btn btn-danger mt-3" (click)="cancelarPedidoSelecionado()">
-                Cancelar Pedido
-              </button>
+<div class="orders-container">
+  <div class="orders-header">
+    <h2><i class="fas fa-boxes"></i> Pedidos</h2>
+    <p class="orders-count">{{ lista.length }} pedido(s)</p>
+  </div>
+
+  @if (lista.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>Nenhum pedido encontrado</h3>
+      <p>Você ainda não realizou nenhum pedido.</p>
+    </div>
+  } @else {
+    <div class="orders-list">
+      @for (order of lista; track order.id) {
+        <div class="order-card" (click)="viewOrderDetails(order)">
+          <div class="order-card-header">
+            <div class="order-id-badge">#{{ order.id }}</div>
+            <span class="order-status" [class]="'status-' + (order.status | lowercase)">{{ order.status }}</span>
+          </div>
+          <div class="order-card-body">
+            <div class="order-info">
+              <small class="order-date">📅 {{ order.createdAt | date:'dd/MM/yyyy' }}</small>
+              <p class="order-total">{{ getOrderTotalCents(order) / 100 | currency:'BRL':'symbol':'1.2-2' }}</p>
+            </div>
+            <div class="order-items-preview">
+              <small>{{ order.items.length }} item(ns)</small>
             </div>
           </div>
+          <div class="order-card-footer">
+            <span class="view-details">Ver detalhes <i class="fas fa-angle-right"></i></span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@if (selectedOrder) {
+  <div class="order-detail-backdrop" (click)="closeOrderDetails()">
+    <div class="order-detail-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <button class="btn-close" (click)="closeOrderDetails()" title="Fechar"><i class="fas fa-times"></i></button>
+        <h3>Pedido #{{ selectedOrder.id }}</h3>
+      </div>
+
+      <div class="modal-content">
+        <div class="order-meta">
+          <div class="meta-item">
+            <span class="meta-label">Status</span>
+            <span class="meta-value" [class]="'status-' + (selectedOrder.status | lowercase)">{{ selectedOrder.status }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Data</span>
+            <span class="meta-value">{{ selectedOrder.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+        </div>
+
+        <div class="items-section">
+          <h4>📋 Itens do Pedido</h4>
+          <div class="items-list">
+            @for (item of selectedOrder.items; track item.productId) {
+              <div class="item-row">
+                <div class="item-info">
+                  <span class="item-name">{{ item.productName }}</span>
+                  <span class="item-qty">Qtd: {{ item.quantity }}</span>
+                </div>
+                <div class="item-price">
+                  {{ item.priceCents / 100 | currency:'BRL':'symbol':'1.2-2' }}
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="order-total-section">
+          <div class="total-row">
+            <span>Total</span>
+            <strong>{{ getOrderTotalCents(selectedOrder) / 100 | currency:'BRL':'symbol':'1.2-2' }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeOrderDetails()">Fechar</button>
+        @if (selectedOrder.status !== 'CANCELLED') {
+          <button class="btn btn-danger" (click)="cancelarPedidoSelecionado()">
+            <i class="fas fa-ban"></i> Cancelar Pedido
+          </button>
         }
+      </div>
+    </div>
+  </div>
+}
