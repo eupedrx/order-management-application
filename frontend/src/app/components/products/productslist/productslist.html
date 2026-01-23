@@ -4,7 +4,7 @@
         <h3>Filtros</h3>
 
         <div class="filter-group">
-            <label for="searchInput">🔍 Buscar</label>
+            <label for="searchInput"><i class="fas fa-search"></i> Buscar</label>
             <input type="text" id="searchInput" placeholder="Nome do produto..." />
         </div>
 
@@ -78,7 +78,7 @@
 <div class="cart-modal-backdrop">
     <div class="cart-modal">
         <div class="cart-header">
-            <h3>🛒 Carrinho</h3>
+            <h3><i class="fas fa-shopping-cart"></i> Carrinho</h3>
             <button class="btn-close" type="button" (click)="closeCartModal()"></button>
         </div>
 
@@ -106,21 +106,25 @@
             </div>}
         </div>
 
-        <div class="cart-footer" *ngIf="cart.length > 0">
+        @if (cart.length > 0) {
+        <div class="cart-footer">
             <div class="cart-total">
                 <strong>Total:</strong>
                 <span>{{ cartTotalFormatted }}</span>
             </div>
+            
             <button class="btn btn-primary" type="button" (click)="abrirCheckout()">
                 Finalizar Pedido
             </button>
         </div>
+        }
     </div>
 </div>
  }
 
 <!-- Modal de Checkout -->
-<div class="modal-backdrop" *ngIf="isCheckoutOpen">
+ @if (isCheckoutOpen) {
+<div class="modal-backdrop">
     <div class="modal-content">
         <h2>Finalizar Pedido</h2>
         <form (ngSubmit)="confirmarPedido()">
@@ -182,13 +186,16 @@
         </form>
     </div>
 </div>
+ }
 
 <!-- Botão flutuante do carrinho -->
+@if (!isCartModalOpen) {
 <button
-    class="cart-fab"
+    class="cart-fab "
     type="button"
     (click)="openCartModal()"
-    *ngIf="!isCartModalOpen"
 >
-    🛒 <span>{{ cartCount }}</span>
+<i class="fas fa-shopping-cart"></i>
+<span>{{ cartCount }}</span>
 </button>
+}

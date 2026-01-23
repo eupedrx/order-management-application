@@ -11,8 +11,9 @@
 		</div>
 
 		<div class="modal-body">
-			<p *ngIf="cart.length === 0">Carrinho vazio</p>
-
+			@if (cart.length === 0) {
+			<p>Carrinho vazio</p>
+			}
 			<div class="cart-item" *ngFor="let item of cart; let i = index">
 				<div>
 					<strong>{{ item.name }}</strong>
@@ -37,7 +38,9 @@
 			</div>
 		</div>
 
-		<div class="modal-footer" *ngIf="cart.length > 0">
+
+		@if (cart.length > 0) {
+		<div class="modal-footer">
 			<div class="cart-total">
 				<strong>Total:</strong>
 				<span>{{ cartTotalFormatted }}</span>
@@ -47,5 +50,6 @@
 				Finalizar Pedido
 			</button>
 		</div>
+		}
 	</div>
 </div>
