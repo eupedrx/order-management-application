@@ -64,9 +64,11 @@
                             Adicionar
                         </button>
                     </div>
-                    <p class="product-unavailable" *ngIf="!isProductAvailable(product)">
+                    @if (!isProductAvailable(product)) {
+                    <p class="product-unavailable">
                         Indisponível
                     </p>
+                    }
                 </div>
             }
         </div>
@@ -83,8 +85,9 @@
         </div>
 
         <div class="cart-items">
-            <p class="empty-cart" *ngIf="cart.length === 0">Carrinho vazio</p>
-
+            @if (cart.length === 0) {
+            <p class="empty-cart">Carrinho vazio</p>
+            }
             @for (item of cart; track item.productId; let i = $index) {
             <div class="cart-item">
                 <div>

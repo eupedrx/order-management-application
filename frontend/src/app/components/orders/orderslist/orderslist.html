@@ -15,12 +15,12 @@
       @for (order of lista; track order.id) {
         <div class="order-card" (click)="viewOrderDetails(order)">
           <div class="order-card-header">
-            <div class="order-id-badge">#{{ order.id }}</div>
+            <div class="order-id-badge"> Pedido #{{ order.id }}</div>
             <span class="order-status" [class]="'status-' + (order.status | lowercase)">{{ order.status }}</span>
           </div>
           <div class="order-card-body">
             <div class="order-info">
-              <small class="order-date">📅 {{ order.createdAt | date:'dd/MM/yyyy' }}</small>
+              <small class="order-date"><i class="fas fa-calendar-alt"></i> {{ order.createdAt | date:'dd/MM/yyyy' }}</small>
               <p class="order-total">{{ getOrderTotalCents(order) / 100 | currency:'BRL':'symbol':'1.2-2' }}</p>
             </div>
             <div class="order-items-preview">

@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-productsdetails',
   imports: [CommonModule],
   templateUrl: './productsdetails.html',
-  styleUrl: './productsdetails.scss',
+  styleUrl: './productsdetails.css',
 })
 export class Productsdetails {
 

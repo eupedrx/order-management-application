@@ -6,7 +6,7 @@ import { RouterOutlet } from "@angular/router";
   selector: 'app-principal',
   imports: [Navbar, RouterOutlet],
   templateUrl: './principal.html',
-  styleUrl: './principal.scss',
+  styleUrl: './principal.css',
 })
 export class Principal {
 

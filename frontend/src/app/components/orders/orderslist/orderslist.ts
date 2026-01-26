@@ -7,7 +7,7 @@ import { CommonModule, DatePipe } from '@angular/common';
   selector: 'app-orderslist',
   imports: [CommonModule, DatePipe],
   templateUrl: './orderslist.html',
-  styleUrl: './orderslist.scss',
+  styleUrl: './orderslist.css',
 })
 export class Orderslist {
 

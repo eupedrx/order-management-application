@@ -14,7 +14,7 @@ import { PaymentMethod } from '../../../models/enums/payment-method';
   selector: 'app-productslist',
   imports: [CommonModule, FormsModule],
   templateUrl: './productslist.html',
-  styleUrl: './productslist.scss',
+  styleUrl: './productslist.css',
 })
 export class Productslist {
   lista: ProductFilterModel[] = [];

@@ -5,7 +5,7 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
   selector: 'app-navbar',
   imports: [MdbCollapseModule],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.scss',
+  styleUrl: './navbar.css',
 })
 export class Navbar {
 

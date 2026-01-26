@@ -5,7 +5,7 @@ import { Navbar } from "../navbar/navbar";
   selector: 'app-products',
   imports: [],
   templateUrl: './products.html',
-  styleUrl: './products.scss',
+  styleUrl: './products.css',
 })
 export class Products {
 
